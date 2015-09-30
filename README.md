@@ -5,7 +5,7 @@ Server Deploy
 * [client] 4.28
 
 ###Reference manual
-* http://manual.seafile.com/build_seafile/server.html
+* <http://manual.seafile.com/build_seafile/server.html>
 
 ###Dependencies(in ubuntu)
 	1.preparation
@@ -30,7 +30,7 @@ Server Deploy
 
 	2.libzdb
     Install re2c and flex
-    []Download libzdb](http://www.tildeslash.com/libzdb/dist/libzdb-2.12.tar.gz)
+    [Download libzdb]<http://www.tildeslash.com/libzdb/dist/libzdb-2.12.tar.gz>
 
 	3.libevhtp
     [Download libevhtp](https://github.com/ellzey/libevhtp/archive/1.1.6.zip)
