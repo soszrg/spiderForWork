@@ -8,7 +8,7 @@ Server Deploy
 * http://manual.seafile.com/build_seafile/server.html
 
 ###Dependencies(in ubuntu)
-	<1> preparation
+	1.preparation
     libevent-dev (2.0 or later )
 	libcurl4-openssl-dev (1.0.0 or later)
 	libglib2.0-dev (2.28 or later)
@@ -28,20 +28,20 @@ Server Deploy
 
 	sudo apt-get install libevent-dev libcurl4-openssl-dev libglib2.0-dev uuid-dev intltool libsqlite3-dev libmysqlclient-dev libarchive-dev libtool libjansson-dev valac libfuse-dev python-dev mysql-server mysql-client libmysqlclient-dev 
 
-	<2>libzdb
+	2.libzdb
     Install re2c and flex
-    Download libzdb:http://www.tildeslash.com/libzdb/dist/libzdb-2.12.tar.gz
+    []Download libzdb](http://www.tildeslash.com/libzdb/dist/libzdb-2.12.tar.gz)
 
-3. libevhtp
-    Download libevhtp:https://github.com/ellzey/libevhtp/archive/1.1.6.zip
+	3.libevhtp
+    [Download libevhtp](https://github.com/ellzey/libevhtp/archive/1.1.6.zip)
     Build libevhtp by:
     cmake -DEVHTP_DISABLE_SSL=ON -DEVHTP_BUILD_SHARED=ON .
     make
     sudo make install
 
-4. seahub dependencies
-    django 1.5:https://www.djangoproject.com/download/1.5.2/tarball/
-    djblets:https://github.com/djblets/djblets/tarball/release-0.6.14
+	4.seahub dependencies
+    [django 1.5](https://www.djangoproject.com/download/1.5.2/tarball/)
+    [djblets](https://github.com/djblets/djblets/tarball/release-0.6.14)
     sqlite3
     simplejson (python-simplejson)
     PIL (aka. python imaging library, python-image)
@@ -56,48 +56,48 @@ Server Deploy
     django-taggit 
     pyelasticsearch
     urlib3(beacause pyes may cover urllib3, check where there is src dir of urllib3 in /usr/local/lib/pythonX.X/dist-package. If no, install it)
-5.  install and config tomcat
-	1> download tomcat6:http://tomcat.apache.org/
-	2> extact, eg:/home/zrg/
-	3> mv apache-tomcat-6.0.44 tomcat6
-	4> create auditlog db
-		CREATE DATABASE logaudit CHARACTER SET utf8 COLLATE utf8_bin;
-		CREATE TABLE `audit` (
-		  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-		  `appID` varchar(64) DEFAULT NULL,
-		  `appVersion` varchar(64) DEFAULT NULL,
-		  `fileID` varchar(200) NOT NULL,
-		  `fileName` varchar(200) NOT NULL,
-		  `filePath` varchar(100) NOT NULL,
-		  `opDate` datetime NOT NULL,
-		  `opUser` varchar(200) NOT NULL,
-		  `opType` varchar(200) NOT NULL,
-		  `message` varchar(1024) DEFAULT NULL,
-		  `macIP` varchar(200) NOT NULL,
-		  `devInfo` varchar(200) DEFAULT NULL,
-		  PRIMARY KEY (`id`,`opDate`)
-		) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-	5> config env
-		1) sudo vi /etc/profile
-			add the following:
+	5.install and config tomcat
+		1> [download tomcat6](http://tomcat.apache.org/)
+		2> extact, eg:/home/zrg/
+		3> mv apache-tomcat-6.0.44 tomcat6
+		4> create auditlog db
+			CREATE DATABASE logaudit CHARACTER SET utf8 COLLATE utf8_bin;
+			CREATE TABLE `audit` (
+				`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+				`appID` varchar(64) DEFAULT NULL,
+				`appVersion` varchar(64) DEFAULT NULL,
+				`fileID` varchar(200) NOT NULL,
+				`fileName` varchar(200) NOT NULL,
+				`filePath` varchar(100) NOT NULL,
+				`opDate` datetime NOT NULL,
+				`opUser` varchar(200) NOT NULL,
+				`opType` varchar(200) NOT NULL,
+				`message` varchar(1024) DEFAULT NULL,
+				`macIP` varchar(200) NOT NULL,
+				`devInfo` varchar(200) DEFAULT NULL,
+				PRIMARY KEY (`id`,`opDate`)
+			) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+		5> config env
+			1) sudo vi /etc/profile
+				add the following:
 				export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/ (confirm java path and version)
 				export CLASSPATH=$CLASSPATH:%JAVA_HOME/lib/tools.jar
 				export TOMCAT_HOME=/home/zrg/tomcat6
 				export CATALINA_HOME=$TOMCAT_HOME
 				export PATH=$PATH:$TOMCAT_HOME/bin
-		2) cd /home/zrg/tomcat6/bin
-			vi catalina.sh
-			add the following before cygwin=false
-				JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/
-		3) add audit.war into tomcat webapp
-			mv ~/audit.war ~/tomcat6/webapps
-		4) into tomcat/bin dir, start tomcat
-			sudo ./startup.sh
-			(sudo ./shutdown.sh to stop tomcat)
-		5) modify audit ip
-			cd ~/tomcat6/webapps/audit/WEB-INF/classes
-			vi db.properties
-			modify url to jdbc:mysql://localhost:3306/logaudit
+			2) cd /home/zrg/tomcat6/bin
+				vi catalina.sh
+				add the following before cygwin=false
+					JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/
+			3) add audit.war into tomcat webapp
+				mv ~/audit.war ~/tomcat6/webapps
+			4) into tomcat/bin dir, start tomcat
+				sudo ./startup.sh
+				(sudo ./shutdown.sh to stop tomcat)
+			5) modify audit ip
+				cd ~/tomcat6/webapps/audit/WEB-INF/classes
+				vi db.properties
+				modify url to jdbc:mysql://localhost:3306/logaudit
 			
 ###Compile and install components
     <1>dir structure
