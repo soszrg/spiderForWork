@@ -3,7 +3,10 @@ Server Deploy
 ### version 
 * [server] ccnet-4.3.0 seafile-4.3.0 seahub-4.3.0-server libsearpc-3.0-latest
 * [client] 4.28
-###Reference Manual : http://manual.seafile.com/build_seafile/server.html
+
+###Reference Manual
+* http://manual.seafile.com/build_seafile/server.html
+
 ### dependencies(in ubuntu)
 1. preparation
 	libevent-dev (2.0 or later )
@@ -150,21 +153,21 @@ Server Deploy
 		cd baseline
 		export PYTHONPATH=[baseline path]/baseline/secfileServer/seahub/thirdpart
 		secfile-admin setup //config server(when hint that[You just installed Django's auth system, which means you don't have any superusers defined.],input "no")
-	(2)modify ccnet/ccnet.conf, Add
+	(3) modify ccnet/ccnet.conf, Add
 		[Database]
 		ENGINE=mysql
 		HOST=localhost
 		USER=seafile
 		PASSWD=seafile
 		DB=ccnet-db
-	(3)modify seafile-data/seafile.conf, Add
+	(4) modify seafile-data/seafile.conf, Add
 		[database]
 		type=mysql
 		host=localhost
 		user=seafile
 		password=seafile
 		db_name=seafile-db
-	(4) modify seahub_settings.py, Add
+	(5) modify seahub_settings.py, Add
 		DATABASES = {
 			'default': {
 				'ENGINE': 'django.db.backends.mysql',
@@ -174,7 +177,8 @@ Server Deploy
 				'HOST' : 'localhost',
 			}
 		}
-	(5)secfile-admin stop && secfile-admin start
+	(6)secfile-admin stop && secfile-admin start
+
 ###create admin account
 	1) export all sql files of [~/baseline/secfileServer/seahub/sql] into mysql db(if any error, maybe ignore it):eg.[mysql -uroot -p123456<mod-2015-08-04.sql]
 	2) secfile-admin create-admin
