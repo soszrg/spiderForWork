@@ -8,7 +8,7 @@ Server Deploy
 * http://manual.seafile.com/build_seafile/server.html
 
 ###Dependencies(in ubuntu)
-1. preparation
+	<1> preparation
     libevent-dev (2.0 or later )
 	libcurl4-openssl-dev (1.0.0 or later)
 	libglib2.0-dev (2.28 or later)
@@ -28,7 +28,7 @@ Server Deploy
 
 	sudo apt-get install libevent-dev libcurl4-openssl-dev libglib2.0-dev uuid-dev intltool libsqlite3-dev libmysqlclient-dev libarchive-dev libtool libjansson-dev valac libfuse-dev python-dev mysql-server mysql-client libmysqlclient-dev 
 
-2. libzdb
+	<2>libzdb
     Install re2c and flex
     Download libzdb:http://www.tildeslash.com/libzdb/dist/libzdb-2.12.tar.gz
 
