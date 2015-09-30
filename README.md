@@ -1,5 +1,4 @@
-﻿==========================================================================================
-***********server deploy**********
+﻿server deploy
 1.version [server] ccnet-4.3.0 seafile-4.3.0 seahub-4.3.0-server libsearpc-3.0-latest
 [client]
 4.28
@@ -231,8 +230,7 @@
 	注意：163，需要到root@163.com账户去开启smtp服务，开启这个服务才可以使用email功能，
 	若中间使用了授权码，这地方的password 就不在是登录密码， 是授权密码。
 
-=============================================================================
-***********Linux client deploy**********
+Linux client deploy
 depends:
 	apt-get install autoconf automake libtool libevent-dev libcurl4-openssl-dev libgtk2.0-dev uuid-dev intltool libsqlite3-dev valac libjansson-dev libqt4-dev cmake libfuse-dev
 1:set paths
