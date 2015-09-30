@@ -57,10 +57,10 @@ Server Deploy
     pyelasticsearch
     urlib3(beacause pyes may cover urllib3, check where there is src dir of urllib3 in /usr/local/lib/pythonX.X/dist-package. If no, install it)
 5.  install and config tomcat
-	1) download tomcat6:http://tomcat.apache.org/
-	2) extact, eg:/home/zrg/
-	3) mv apache-tomcat-6.0.44 tomcat6
-	4):create auditlog db
+	1> download tomcat6:http://tomcat.apache.org/
+	2> extact, eg:/home/zrg/
+	3> mv apache-tomcat-6.0.44 tomcat6
+	4> create auditlog db
 		CREATE DATABASE logaudit CHARACTER SET utf8 COLLATE utf8_bin;
 		CREATE TABLE `audit` (
 		  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -77,24 +77,24 @@ Server Deploy
 		  `devInfo` varchar(200) DEFAULT NULL,
 		  PRIMARY KEY (`id`,`opDate`)
 		) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-	5):config env
-		1)sudo vi /etc/profile
+	5> config env
+		1) sudo vi /etc/profile
 			add the following:
 				export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/ (confirm java path and version)
 				export CLASSPATH=$CLASSPATH:%JAVA_HOME/lib/tools.jar
 				export TOMCAT_HOME=/home/zrg/tomcat6
 				export CATALINA_HOME=$TOMCAT_HOME
 				export PATH=$PATH:$TOMCAT_HOME/bin
-		2)cd /home/zrg/tomcat6/bin
+		2) cd /home/zrg/tomcat6/bin
 			vi catalina.sh
 			add the following before cygwin=false
 				JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/
-		3)add audit.war into tomcat webapp
+		3) add audit.war into tomcat webapp
 			mv ~/audit.war ~/tomcat6/webapps
-		4)into tomcat/bin dir, start tomcat
+		4) into tomcat/bin dir, start tomcat
 			sudo ./startup.sh
 			(sudo ./shutdown.sh to stop tomcat)
-		5)modify audit ip
+		5) modify audit ip
 			cd ~/tomcat6/webapps/audit/WEB-INF/classes
 			vi db.properties
 			modify url to jdbc:mysql://localhost:3306/logaudit
@@ -299,7 +299,7 @@ Linux Client Deploy
 
 	3. last step sudo dpkg -b secfile_0.0.2	
 	
-* [comemnt]
+	4. [comemnt]
 	baseline/secfileServer/src/ccnet$ cp tools/ccnet-init cli/ccnet-tool net/daemon/ccnet ../../../secfileClient/linux/releaseDeb/v_0.0.1/secfile_0.0.2/usr/bin/
 	baseline/secfileServer/src/seafile$ cp app/seaf-cli daemon/seaf-daemon ../../../secfileClient/linux/seafile-client/seafile-applet ../../../secfileClient/linux/releaseDeb/v_0.0.1/secfile_0.0.2/usr/bin/
 	baseline/secfileServer/src/seafile$ cp lib/.libs/libseafile.so.0.0.0 ../ccnet/lib/.libs/libccnet.so.0.0.0 ../libsearpc/lib/.libs/libsearpc.so.1.0.2 ../../../secfileClient/linux/releaseDeb/v_0.0.1/secfile_0.0.2/usr/lib/
