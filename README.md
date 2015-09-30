@@ -30,7 +30,7 @@ Server Deploy
 
 	2.libzdb
     Install re2c and flex
-    [Download libzdb]<http://www.tildeslash.com/libzdb/dist/libzdb-2.12.tar.gz>
+    [Download libzdb](http://www.tildeslash.com/libzdb/dist/libzdb-2.12.tar.gz)
 
 	3.libevhtp
     [Download libevhtp](https://github.com/ellzey/libevhtp/archive/1.1.6.zip)
@@ -193,7 +193,9 @@ Server Deploy
 	2) download SearchEngine 
 	3) start elasticsearch 
 		./SearchEngine/bin/elasticsearch
-///////////////here the server can work, the following is extra config///////////////
+--------------------------------------------------------
+###///////////////here the server can work, the following is extra config///////////////
+--------------------------------------------------------
 
 ###Deploy server with auto script 
 	1)deploy new server 
@@ -299,7 +301,7 @@ Linux Client Deploy
 
 	3. last step sudo dpkg -b secfile_0.0.2	
 	
-	4. [comemnt]
+	4. [Comemnt]
 	baseline/secfileServer/src/ccnet$ cp tools/ccnet-init cli/ccnet-tool net/daemon/ccnet ../../../secfileClient/linux/releaseDeb/v_0.0.1/secfile_0.0.2/usr/bin/
 	baseline/secfileServer/src/seafile$ cp app/seaf-cli daemon/seaf-daemon ../../../secfileClient/linux/seafile-client/seafile-applet ../../../secfileClient/linux/releaseDeb/v_0.0.1/secfile_0.0.2/usr/bin/
 	baseline/secfileServer/src/seafile$ cp lib/.libs/libseafile.so.0.0.0 ../ccnet/lib/.libs/libccnet.so.0.0.0 ../libsearpc/lib/.libs/libsearpc.so.1.0.2 ../../../secfileClient/linux/releaseDeb/v_0.0.1/secfile_0.0.2/usr/lib/
