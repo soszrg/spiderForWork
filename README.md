@@ -1,13 +1,13 @@
 Server Deploy
 ========
-### version 
+### Version 
 * [server] ccnet-4.3.0 seafile-4.3.0 seahub-4.3.0-server libsearpc-3.0-latest
 * [client] 4.28
 
-###Reference Manual
+###Reference manual
 * http://manual.seafile.com/build_seafile/server.html
 
-### dependencies(in ubuntu)
+###Dependencies(in ubuntu)
 1. preparation
 	libevent-dev (2.0 or later )
 	libcurl4-openssl-dev (1.0.0 or later)
@@ -99,7 +99,7 @@ Server Deploy
 			vi db.properties
 			modify url to jdbc:mysql://localhost:3306/logaudit
 			
-###compile and install components
+###Compile and install components
     <1>dir structure
         ->baseline
         |   ->secfileServer
@@ -139,7 +139,7 @@ Server Deploy
         b)收集静态文件 
             在baseline/secfileServer/seahub/目录下执行./manage.py collectstatic --noinput
     
-###config mysql database 
+###Config mysql database 
 	(1) create db and user
 		create database `ccnet-db` character set = 'utf8'; 
 		create database `seafile-db` character set = 'utf8'; 
@@ -179,15 +179,15 @@ Server Deploy
 		}
 	(6)secfile-admin stop && secfile-admin start
 
-###create admin account
+###Create admin account
 	1) export all sql files of [~/baseline/secfileServer/seahub/sql] into mysql db(if any error, maybe ignore it):eg.[mysql -uroot -p123456<mod-2015-08-04.sql]
 	2) secfile-admin create-admin
 
-### add the following task into crontab to clear outdated file:
+###Add the following task into crontab to clear outdated file:
 	1)crontab -e // open crontab config file
 	2)0 1 * * * [baseline absolute path]/baseline/secfileServer/seahub/manage.py clearexfile	
 
-###install elasticsearch 
+###Install elasticsearch 
 	1) install java env 
 		sudo apt-get install default-jre default-jdk 
 	2) download SearchEngine 
@@ -195,7 +195,7 @@ Server Deploy
 		./SearchEngine/bin/elasticsearch
 ///////////////here the server can work, the following is extra config///////////////
 
-###deploy server with auto script 
+###Deploy server with auto script 
 	1)deploy new server 
 		a)copy autoDeploy.sh to parent dir of baseline dir 
 			->XXX 
@@ -208,13 +208,13 @@ Server Deploy
 		c)execute shell and input mysql root password, then input "n" to update component 
 		d)choose the component you want to update by inputing "y" when hint to input y/n
 		
-###how to change language in webui 
+###How to change language in webui 
 	cd seahub/locale/LC_MESSAGES msgfmt -o django.mo django.po [if there isn't django.mo, in secfileServer/seahub, execute "./i18n compile-all"]
 	#restart server
 	secfile-admin stop
 	secfile-admin start
 	
-###how to use email server modify seahub_setting.py, Add
+###How to use email server modify seahub_setting.py, Add
 	EMAIL_USE_TLS = False
 	EMAIL_HOST = 'smtp.domain.com'
 	EMAIL_HOST_USER = 'username@domain.com'
@@ -239,39 +239,39 @@ Linux Client Deploy
 ========
 ###Depends
 	apt-get install autoconf automake libtool libevent-dev libcurl4-openssl-dev libgtk2.0-dev uuid-dev intltool libsqlite3-dev valac libjansson-dev libqt4-dev cmake libfuse-dev
-###set paths
+
+###Set paths
 	export PREFIX=/usr
 	export PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH"
 	export PATH="$PREFIX/bin:$PATH"
 
-###compile libsearpc
+###Compile libsearpc
 	cd libsearpc
 	./autogen.sh
 	./configure --prefix=$PREFIX
 	make
 	cd ..
 
-###compile ccnet
+###Compile ccnet
 	cd ccnet
 	./autogen.sh
 	./configure --prefix=$PREFIX
 	make
 	
-	
-###compile seafile
+###Compile seafile
 	cd seafile
 	./autogen.sh
 	./configure --prefix=$PREFIX --disable-gui
 	make
 	cd ..
 
-###compile seafile-client
+###Compile seafile-client
 	cd seafile-client
 	cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PREFIX .
 	make
 	cd ..
 
-###make deb
+###Make deb
 	1. remove old file 
 		rm seafile_0.0.2/usr/bin* 
 		rm seafile_0.0.2/usr/lib/so 
