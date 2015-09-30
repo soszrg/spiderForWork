@@ -9,7 +9,7 @@ Server Deploy
 
 ###Dependencies(in ubuntu)
 1. preparation
-	libevent-dev (2.0 or later )
+    libevent-dev (2.0 or later )
 	libcurl4-openssl-dev (1.0.0 or later)
 	libglib2.0-dev (2.28 or later)
 	uuid-dev
