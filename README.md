@@ -1,10 +1,11 @@
-﻿server deploy
-1.version [server] ccnet-4.3.0 seafile-4.3.0 seahub-4.3.0-server libsearpc-3.0-latest
-[client]
-4.28
-
-2.dependencies(in ubuntu) url:http://manual.seafile.com/build_seafile/server.html
-(1)preparation
+Server Deploy
+========
+### version 
+* [server] ccnet-4.3.0 seafile-4.3.0 seahub-4.3.0-server libsearpc-3.0-latest
+* [client] 4.28
+###Reference Manual : http://manual.seafile.com/build_seafile/server.html
+### dependencies(in ubuntu)
+1. preparation
 	libevent-dev (2.0 or later )
 	libcurl4-openssl-dev (1.0.0 or later)
 	libglib2.0-dev (2.28 or later)
@@ -24,18 +25,18 @@
 
 	sudo apt-get install libevent-dev libcurl4-openssl-dev libglib2.0-dev uuid-dev intltool libsqlite3-dev libmysqlclient-dev libarchive-dev libtool libjansson-dev valac libfuse-dev python-dev mysql-server mysql-client libmysqlclient-dev 
 
-(2)libzdb
+2. libzdb
     Install re2c and flex
     Download libzdb:http://www.tildeslash.com/libzdb/dist/libzdb-2.12.tar.gz
 
-(3)libevhtp
+3. libevhtp
     Download libevhtp:https://github.com/ellzey/libevhtp/archive/1.1.6.zip
     Build libevhtp by:
     cmake -DEVHTP_DISABLE_SSL=ON -DEVHTP_BUILD_SHARED=ON .
     make
     sudo make install
 
-(4)seahub dependencies
+4. seahub dependencies
     django 1.5:https://www.djangoproject.com/download/1.5.2/tarball/
     djblets:https://github.com/djblets/djblets/tarball/release-0.6.14
     sqlite3
@@ -52,10 +53,10 @@
     django-taggit 
     pyelasticsearch
     urlib3(beacause pyes may cover urllib3, check where there is src dir of urllib3 in /usr/local/lib/pythonX.X/dist-package. If no, install it)
-(5)install and config tomcat
-	1):download tomcat6:http://tomcat.apache.org/
-	2):extact, eg:/home/zrg/
-	3):mv apache-tomcat-6.0.44 tomcat6
+5.  install and config tomcat
+	1) download tomcat6:http://tomcat.apache.org/
+	2) extact, eg:/home/zrg/
+	3) mv apache-tomcat-6.0.44 tomcat6
 	4):create auditlog db
 		CREATE DATABASE logaudit CHARACTER SET utf8 COLLATE utf8_bin;
 		CREATE TABLE `audit` (
@@ -95,7 +96,7 @@
 			vi db.properties
 			modify url to jdbc:mysql://localhost:3306/logaudit
 			
-3.compile and install components
+###compile and install components
     <1>dir structure
         ->baseline
         |   ->secfileServer
@@ -135,7 +136,7 @@
         b)收集静态文件 
             在baseline/secfileServer/seahub/目录下执行./manage.py collectstatic --noinput
     
-4.config mysql database 
+###config mysql database 
 	(1) create db and user
 		create database `ccnet-db` character set = 'utf8'; 
 		create database `seafile-db` character set = 'utf8'; 
@@ -174,15 +175,15 @@
 			}
 		}
 	(5)secfile-admin stop && secfile-admin start
-5.create admin account
+###create admin account
 	1) export all sql files of [~/baseline/secfileServer/seahub/sql] into mysql db(if any error, maybe ignore it):eg.[mysql -uroot -p123456<mod-2015-08-04.sql]
 	2) secfile-admin create-admin
 
-6. add the following task into crontab to clear outdated file:
+### add the following task into crontab to clear outdated file:
 	1)crontab -e // open crontab config file
 	2)0 1 * * * [baseline absolute path]/baseline/secfileServer/seahub/manage.py clearexfile	
 
-7.install elasticsearch 
+###install elasticsearch 
 	1) install java env 
 		sudo apt-get install default-jre default-jdk 
 	2) download SearchEngine 
@@ -190,7 +191,7 @@
 		./SearchEngine/bin/elasticsearch
 ///////////////here the server can work, the following is extra config///////////////
 
-8.deploy server with auto script 
+###deploy server with auto script 
 	1)deploy new server 
 		a)copy autoDeploy.sh to parent dir of baseline dir 
 			->XXX 
@@ -203,13 +204,13 @@
 		c)execute shell and input mysql root password, then input "n" to update component 
 		d)choose the component you want to update by inputing "y" when hint to input y/n
 		
-9.how to change language in webui 
+###how to change language in webui 
 	cd seahub/locale/LC_MESSAGES msgfmt -o django.mo django.po [if there isn't django.mo, in secfileServer/seahub, execute "./i18n compile-all"]
 	#restart server
 	secfile-admin stop
 	secfile-admin start
 	
-10.how to use email server modify seahub_setting.py, Add
+###how to use email server modify seahub_setting.py, Add
 	EMAIL_USE_TLS = False
 	EMAIL_HOST = 'smtp.domain.com'
 	EMAIL_HOST_USER = 'username@domain.com'
@@ -230,43 +231,44 @@
 	注意：163，需要到root@163.com账户去开启smtp服务，开启这个服务才可以使用email功能，
 	若中间使用了授权码，这地方的password 就不在是登录密码， 是授权密码。
 
-Linux client deploy
-depends:
+Linux Client Deploy
+========
+###Depends
 	apt-get install autoconf automake libtool libevent-dev libcurl4-openssl-dev libgtk2.0-dev uuid-dev intltool libsqlite3-dev valac libjansson-dev libqt4-dev cmake libfuse-dev
-1:set paths
+###set paths
 	export PREFIX=/usr
 	export PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH"
 	export PATH="$PREFIX/bin:$PATH"
 
-2:compile libsearpc
+###compile libsearpc
 	cd libsearpc
 	./autogen.sh
 	./configure --prefix=$PREFIX
 	make
 	cd ..
 
-3:compile ccnet
+###compile ccnet
 	cd ccnet
 	./autogen.sh
 	./configure --prefix=$PREFIX
 	make
 	
 	
-4:compile seafile
+###compile seafile
 	cd seafile
 	./autogen.sh
 	./configure --prefix=$PREFIX --disable-gui
 	make
 	cd ..
 
-5:compile seafile-client
+###compile seafile-client
 	cd seafile-client
 	cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PREFIX .
 	make
 	cd ..
 
-6:make deb
-	1) remove old file 
+###make deb
+	1. remove old file 
 		rm seafile_0.0.2/usr/bin* 
 		rm seafile_0.0.2/usr/lib/so 
 		rm seafile_0.0.2/usr/lib/python2.7/dist-packages/ccnet/* -rf 
@@ -274,7 +276,7 @@ depends:
 		rm seafile_0.0.2/usr/lib/python2.7/dist-packages/seafile/* -rf 
 		rm seafile_0.0.2/usr/lib/python2.7/dist-packages/seaserv/* -rf
 
-	2) cp new file to
+	2. cp new file to
 		cp ccnet,ccnet-init,ccnet-tool to /usr/bin from ../secfileServer/src/ccnet after complie
 		cp seaf-cli,seaf-daemon,seafile-applet to /usr/bin from ../secfileServer/src/seafile after complie
 		cp libccnet.so.0.0.0, libseafile.so.0.0.0,libsearpc.so.1.0.2 to usr/lib from ../secfileServer/src/ ccnet seafile libsearpc, 
@@ -291,9 +293,9 @@ depends:
 			cp seafile/python/seafile /usr/lib/python2.7/dist-packages/seafile 
 			cp seafile/python/seaserv /usr/lib/python2.7/dist-packages/seaserv
 
-	3)last step sudo dpkg -b secfile_0.0.2	
+	3. last step sudo dpkg -b secfile_0.0.2	
 	
-[comemnt]
+* [comemnt]
 	baseline/secfileServer/src/ccnet$ cp tools/ccnet-init cli/ccnet-tool net/daemon/ccnet ../../../secfileClient/linux/releaseDeb/v_0.0.1/secfile_0.0.2/usr/bin/
 	baseline/secfileServer/src/seafile$ cp app/seaf-cli daemon/seaf-daemon ../../../secfileClient/linux/seafile-client/seafile-applet ../../../secfileClient/linux/releaseDeb/v_0.0.1/secfile_0.0.2/usr/bin/
 	baseline/secfileServer/src/seafile$ cp lib/.libs/libseafile.so.0.0.0 ../ccnet/lib/.libs/libccnet.so.0.0.0 ../libsearpc/lib/.libs/libsearpc.so.1.0.2 ../../../secfileClient/linux/releaseDeb/v_0.0.1/secfile_0.0.2/usr/lib/
